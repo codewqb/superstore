@@ -24,31 +24,33 @@
 </template>
 
 <script>
-import {getHomeMultidata} from 'network/home';
 export default {
+  props: {
+    banners: {
+      type: Array,
+      defaultdefault() {
+        return []
+      }
+    }
+  },
   data() {
     return {
-      banners:[],
-      currentIndex:0,
-      intervalId:null
+      currentIndex: 0,
+      intervalId: null
     }
   },
   mounted() {
-    getHomeMultidata().then(res => {
-      console.log(res);
-      this.banners = res.data.banner.list
-    }),
     this.play()
   },
   methods: {
-    autoPlay(){
+    autoPlay() {
       this.currentIndex++;
       if (this.currentIndex == this.banners.length) {
         this.currentIndex = 0
       }
     },
-    play(){
-      this.intervalId=setInterval(this.autoPlay,2000)
+    play() {
+      this.intervalId = setInterval(this.autoPlay, 2000)
     }
   },
 }
