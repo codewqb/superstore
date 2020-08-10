@@ -1,5 +1,4 @@
 <template>
-  <div>
     <tab-bar>
       <tab-bar-item path="/home" color="deeppink">
         <i class="fas fa-home"></i>
@@ -18,7 +17,6 @@
         <span>我的</span>
       </tab-bar-item>
     </tab-bar>
-  </div>
 </template>
 <script>
 import tabBar from 'components/common/tabbar/TabBar'
@@ -31,15 +29,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-i {
+.tab-bar-item i {
   display: block;
   margin: 4px 0px 0px 0px;
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 20px;
+  line-height: 24px;
 }
-span {
+.tab-bar-item span {
   display: block;
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 22px;
 }
 </style>

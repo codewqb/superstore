@@ -16,4 +16,8 @@ export default {
 
 <style lang="less">
 @import "assets/css/base.css";
+html,
+body {
+  height: 100%;
+}
 </style>
