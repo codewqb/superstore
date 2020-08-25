@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    <main-tab-bar></main-tab-bar>
+    <keep-alive exclude="Detail">
+      <router-view></router-view>
+    </keep-alive>
+    <main-tab-bar class="main-tab-bar"></main-tab-bar>
   </div>
 </template>
 
 <script>
 import mainTabBar from 'components/content/maintabbar/MainTabBar'
 export default {
-  components:{
+  name: 'App',
+  components: {
     mainTabBar
   }
 }
@@ -17,7 +20,8 @@ export default {
 <style lang="less">
 @import "assets/css/base.css";
 html,
-body {
-  height: 100%;
+body,
+#app {
+  width: 100%;
 }
 </style>

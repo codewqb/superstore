@@ -1,27 +1,28 @@
 <template>
-    <tab-bar>
-      <tab-bar-item path="/home" color="deeppink">
-        <i class="fas fa-home"></i>
-        <span>首页</span>
-      </tab-bar-item>
-      <tab-bar-item path="/category" color="deeppink">
-        <i class="fas fa-th-large"></i>
-        <span>分类</span>
-      </tab-bar-item>
-      <tab-bar-item path="/shopcart" color="deeppink">
-        <i class="fas fa-shopping-cart"></i>
-        <span>购物车</span>
-      </tab-bar-item>
-      <tab-bar-item path="/profile" color="deeppink">
-        <i class="fas fa-user"></i>
-        <span>我的</span>
-      </tab-bar-item>
-    </tab-bar>
+  <tab-bar>
+    <tab-bar-item path="/home" color="var(--color-high-text)">
+      <i class="fas fa-home"></i>
+      <span>首页</span>
+    </tab-bar-item>
+    <tab-bar-item path="/category" color="var(--color-high-text)">
+      <i class="fas fa-th-large"></i>
+      <span>分类</span>
+    </tab-bar-item>
+    <tab-bar-item path="/shopcart" color="var(--color-high-text)">
+      <i class="fas fa-shopping-cart"></i>
+      <span>购物车</span>
+    </tab-bar-item>
+    <tab-bar-item path="/profile" color="var(--color-high-text)">
+      <i class="fas fa-user"></i>
+      <span>我的</span>
+    </tab-bar-item>
+  </tab-bar>
 </template>
 <script>
 import tabBar from 'components/common/tabbar/TabBar'
 import tabBarItem from 'components/common/tabbar/TabBarItem'
 export default {
+  name: 'MainTabBar',
   components: {
     tabBar,
     tabBarItem

@@ -8,6 +8,7 @@
 <script>
 
 export default {
+  name: 'TabBarItem',
   props: {
     path: String,
     color: String

@@ -54,3 +54,17 @@ a {
 .r {
   float: right;
 }
+
+.swiper-container {
+
+  --swiper-pagination-color: rgb(206, 46, 73);
+}
+
+span.swiper-pagination-bullet {
+  background-color: #fff;
+  opacity: 1;
+}
+span.swiper-pagination-bullet-active {
+  background-color: rgb(219, 55, 132);
+  opacity: 1;
+}
