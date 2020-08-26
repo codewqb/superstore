@@ -14,8 +14,8 @@
     <scroll
       class="home-scroll"
       ref="scroll"
-      :probeType="3"
-      :pullUpLoad="true"
+      :probe-type="3"
+      :pull-up-load="true"
       @scroll="controlSCroll"
       @pullingUp="loadMore"
     >
@@ -23,13 +23,13 @@
       <home-swiper
         :banners="banners"
         class="home-swiper"
-        myClassName="home-swiper"
-        @swiperImgLoad.once="swiperImgLoad"
+        my-class-name="home-swiper"
+        @swiperImgLoad.once="imgLoad"
       />
       <!-- 推荐 -->
-      <home-recommend :recommends="recommends" @recImgLoad.once="recImgLoad" />
+      <home-recommend :recommends="recommends" @recImgLoad.once="imgLoad" />
       <!-- 本周流行 -->
-      <feature />
+      <feature @imgLoad="imgLoad" />
       <tab-control class="tab-control" :titles="titles" @tabClick="tabClick" ref="tabControl2" />
       <!-- 商品列表 -->
       <goods-list :goods="showGoods" />
@@ -106,7 +106,7 @@ export default {
   mounted() {
     // 图片加载完成监听
     const refresh = debounce(this.$refs.scroll.refresh);
-    this.$bus.$on('itemImgLoad', () => {
+    this.$bus.$on('homeImgLoad', () => {
       refresh();
     })
   },
@@ -148,11 +148,8 @@ export default {
       this.getHomeGoods(this.currentType);
       this.$refs.scroll.finishPullUp();
     },
-    // 轮播图加载获取tabControl的offsetTop
-    swiperImgLoad() {
-      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
-    },
-    recImgLoad() {
+    // 图片加载获取tabControl的offsetTop
+    imgLoad() {
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     },
     /**

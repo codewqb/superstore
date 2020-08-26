@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="toDetail">
-    <img :src="goodsItem.show.img" :alt="goodsItem.title" @load="imgLoad" />
+    <img :src="showImg" :alt="goodsItem.title" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="goods-price">{{ goodsItem.price }}</span>
@@ -20,9 +20,19 @@ export default {
       }
     }
   },
+  computed: {
+    showImg() {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    }
+  },
   methods: {
     imgLoad() {
-      this.$bus.$emit('itemImgLoad');
+      if (this.$route.path.indexOf('/home') !== -1) {
+        this.$bus.$emit('homeImgLoad');
+      } else if (this.$route.path.indexOf('/detail') !== -1) {
+        this.$bus.$emit('detailImgLoad');
+      }
+
     },
     toDetail() {
       this.$router.push('/detail/' + this.goodsItem.iid)
@@ -70,6 +80,6 @@ export default {
   top: -1px;
   width: 14px;
   height: 14px;
-  background: url("~assets/imgs/common/collect.svg") 0 0/14px 14px;
+  background: url(~assets/imgs/common/collect.svg) 0 0/14px 14px;
 }
 </style>

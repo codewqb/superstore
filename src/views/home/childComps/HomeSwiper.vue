@@ -1,5 +1,5 @@
 <template>
-  <swiper :key="banners.length" :myClassName="myClassName">
+  <swiper :key="banners.length" :my-class-name="myClassName">
     <div class="swiper-slide" v-for="(item,index) in banners" :key="index">
       <a :href="item.link">
         <img :src="item.image" @load="imgLoad"/>

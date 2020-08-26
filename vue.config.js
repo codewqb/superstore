@@ -7,6 +7,8 @@ module.exports = {
         'components': '@/components',
         'network': '@/network',
         'views': '@/views',
+        'filter': '@/filter',
+        'mock': '@/mock',
       }
     }
   }

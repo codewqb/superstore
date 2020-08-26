@@ -1,5 +1,5 @@
 <template>
-  <swiper :key="topImgs.length" :myClassName="myClassName">
+  <swiper :key="topImgs.length" :my-class-name="myClassName">
     <div class="swiper-slide" v-for="(item,index) in topImgs" :key="index">
       <img :src="item" />
     </div>

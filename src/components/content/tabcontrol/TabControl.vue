@@ -42,7 +42,7 @@ export default {
   line-height: 40px;
   font-size: 16px;
   text-align: center;
-  background-color: #fff;
+
   .control-item {
     flex: 1;
     span{
