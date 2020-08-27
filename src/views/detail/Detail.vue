@@ -2,22 +2,26 @@
   <div id="detail">
     <!-- 头部导航 -->
     <detail-nav class="detail-nav" @titleClick="titleClick" ref="detailNav" />
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="titleScroll">
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="detailScroll">
       <!-- 轮播图 -->
       <detail-swiper my-class-name="detail-swiper" class="detail-swiper" :top-imgs="topImgs" />
       <!-- 商品基本信息 -->
-      <detail-base-info :goods="goods" />
+      <detail-base-info :goods-info="goodsInfo" />
       <!-- 店铺信息 -->
-      <detail-shop-info :shop="shop" />
+      <detail-shop-info :shop-info="shopInfo" />
       <!-- 商品详情 -->
       <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad" />
       <!-- 商品参数信息 -->
-      <detail-params-info ref="params" :params-info="goodsParams" />
+      <detail-params-info ref="params" :params-info="paramsInfo" />
       <!-- 评论信息 -->
       <detail-comment-info ref="comment" :comment-info="commentInfo" />
       <!-- 推荐 -->
       <goods-list ref="recommend" :goods="recommendGoods" />
     </scroll>
+    <!-- 返回顶部 -->
+    <back-top @click.native="backTop" v-show="isBackTop" />
+    <!-- 底部工具栏 -->
+    <detail-bottom-bar @addToCart="addToCart" />
   </div>
 </template>
 
@@ -30,12 +34,14 @@ import DetailShopInfo from './childComps/DetailShopInfo';
 import DetailGoodsInfo from './childComps/DetailGoodsInfo';
 import DetailParamsInfo from './childComps/DetailParamsInfo';
 import DetailCommentInfo from './childComps/DetailCommentInfo';
+import DetailBottomBar from './childComps/DetailBottomBar';
 // 公共组件
 import Scroll from 'components/common/scroll/Scroll';
 import GoodsList from 'components/content/goods/GoodsList'
 // AJAX
 import { getDetail, Goods, Shop, GoodsParams, getRecommendGoods } from 'network/detail';
 import { debounce } from 'common/tools';
+import { backTopMixin } from 'common/mixins';
 export default {
   name: 'Detail',
   components: {
@@ -46,22 +52,24 @@ export default {
     DetailGoodsInfo,
     DetailParamsInfo,
     DetailCommentInfo,
+    DetailBottomBar,
     Scroll,
     GoodsList
   },
+  mixins: [backTopMixin],
   data() {
     return {
       iid: null,
       // 轮播图
       topImgs: [],
       // 商品信息
-      goods: {},
+      goodsInfo: {},
       // 店铺信息
-      shop: {},
+      shopInfo: {},
       // 商品详情
       detailInfo: {},
       // 商品参数
-      goodsParams: {},
+      paramsInfo: {},
       // 评论信息
       commentInfo: {},
       // 推荐商品数据
@@ -75,6 +83,13 @@ export default {
   created() {
     this.iid = this.$route.params.iid;
     this.getDetail();
+
+  },
+  mounted() {
+    const refresh = debounce(this.$refs.scroll.refresh);
+    this.$bus.$on('detailImgLoad', () => {
+      refresh();
+    });
     this.listener = debounce(() => {
       this.$refs.scroll.refresh();
       this.topPositionY = [];
@@ -86,12 +101,6 @@ export default {
     });
 
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh);
-    this.$bus.$on('detailImgLoad', () => {
-      refresh();
-    })
-  },
   methods: {
     /**
      * 事件监听相关的方法
@@ -101,9 +110,10 @@ export default {
       this.listener();
     },
     titleClick(index) {
-      this.$refs.scroll.scrollTo(0, -this.topPositionY[index]);
+      this.$refs.scroll.scrollTo(0, -this.topPositionY[index], 0);
     },
-    titleScroll(position) {
+    detailScroll(position) {
+      this.listenBackTop(position);
       let py = -position.y;
       const TPY = this.topPositionY;
       for (let i = 0; i < TPY.length - 1; i++) {
@@ -112,6 +122,19 @@ export default {
           this.$refs.detailNav.currentIndex = i;
         }
       }
+    },
+    // 添加购物车
+    addToCart() {
+      // 获取购物车需要展示的信息
+      const cartInfo = {};
+      cartInfo.img = this.topImgs[0];
+      cartInfo.title = this.goodsInfo.title;
+      cartInfo.desc = this.goodsInfo.desc;
+      cartInfo.price = this.goodsInfo.realPrice;
+      cartInfo.iid = this.iid;
+      cartInfo.count = 1;
+      // 添加到购物车
+      this.$store.dispatch('addToCart', cartInfo);
     },
     /**
      * 网络请求相关方法
@@ -122,13 +145,13 @@ export default {
         // 获取轮播图信息
         this.topImgs = data.itemInfo.topImages;
         // 获取商品信息
-        this.goods = new Goods(data.itemInfo, data.shopInfo.services, data.columns);
+        this.goodsInfo = new Goods(data.itemInfo, data.shopInfo.services, data.columns);
         // 获取店铺信息
-        this.shop = new Shop(data.shopInfo);
+        this.shopInfo = new Shop(data.shopInfo);
         // 获取商品详情
         this.detailInfo = data.detailInfo;
         // 获取商品参数
-        this.goodsParams = new GoodsParams(data.itemParams.info, data.itemParams.rule);
+        this.paramsInfo = new GoodsParams(data.itemParams.info, data.itemParams.rule);
         // 获取评论信息
         if (data.rate.cRate !== 0) {
           this.commentInfo = data.rate.list[0];
@@ -156,10 +179,11 @@ export default {
 }
 .content {
   position: absolute;
-  top: 44px;
   left: 0;
+  top: 44px;
   right: 0;
-  bottom: 0;
+  bottom: 49px;
+  overflow: hidden;
 }
 .detail-swiper {
   width: 100%;

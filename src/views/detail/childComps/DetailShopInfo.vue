@@ -1,23 +1,23 @@
 <template>
   <div class="shop-info">
     <div class="shop-top">
-      <img :src="shop.shopLogo" alt />
-      <span>{{ shop.name }}</span>
+      <img :src="shopInfo.shopLogo" alt />
+      <span>{{ shopInfo.name }}</span>
     </div>
     <div class="shop-middle">
       <div class="shop-middle-left">
         <div class="sells-info">
-          <p class="sells-count">{{ shop.sells| sellsFormat }}</p>
+          <p class="sells-count">{{ shopInfo.sells| sellsFormat }}</p>
           <p class="sells-text">总销量</p>
         </div>
         <div class="all-goods">
-          <p class="goods-count">{{ shop.goodsCount }}</p>
+          <p class="goods-count">{{ shopInfo.goodsCount }}</p>
           <p class="goods-text">全部宝贝</p>
         </div>
       </div>
       <div class="shop-middle-right">
         <table>
-          <tr v-for="(item, index) in shop.score" :key="index">
+          <tr v-for="(item, index) in shopInfo.score" :key="index">
             <td>{{ item.name }}</td>
             <td class="score" :class="{'score-better': item.isBetter}">{{ item.score }}</td>
             <td class="lower" :class="{'high': item.isBetter}">
@@ -37,7 +37,7 @@
 export default {
   name: 'DetailShopInfo',
   props: {
-    shop: {
+    shopInfo: {
       type: Object,
       default() {
         return {};

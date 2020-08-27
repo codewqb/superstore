@@ -35,7 +35,7 @@
       <goods-list :goods="showGoods" />
     </scroll>
     <!-- 返回顶部 -->
-    <back-top @click.native="goTop" v-show="isBackTop" />
+    <back-top @click.native="backTop" v-show="isBackTop" />
   </div>
 </template>
 <script>
@@ -48,11 +48,11 @@ import NavBar from 'components/common/navbar/NavBar';
 import Scroll from 'components/common/scroll/Scroll';
 import TabControl from 'components/content/tabcontrol/TabControl';
 import GoodsList from 'components/content/goods/GoodsList';
-import BackTop from 'components/content/backtop/BackTop';
 // AJAX
 import { getHomeMultidata, getHomeGoods } from 'network/home';
 // 公共方法
 import { debounce } from 'common/tools';
+import { backTopMixin } from 'common/mixins';
 
 export default {
   name: 'Home',
@@ -63,9 +63,9 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
-    Scroll,
-    BackTop
+    Scroll
   },
+  mixins: [backTopMixin],
   data() {
     return {
       // 轮播图数据
@@ -82,8 +82,6 @@ export default {
       },
       // 当前商品类型
       currentType: 'pop',
-      // 控制backTop的显示与隐藏
-      isBackTop: false,
       // tabControl的offsetTop
       tabOffsetTop: 0,
       // 控制tabControl的吸顶效果
@@ -132,16 +130,11 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    // 返回顶部
-    goTop() {
-      this.$refs.scroll.scrollTo(0, 0);
-    },
     // 控制返回顶部的显示与隐藏及tabControl的吸顶效果
-    controlSCroll(postion) {
-      // 控制返回顶部显示与隐藏
-      this.isBackTop = -postion.y > 1000;
+    controlSCroll(position) {
+      this.listenBackTop(position);
       // 控制tabControl的吸顶效果
-      this.isTabFixed = -postion.y > this.tabOffsetTop;
+      this.isTabFixed = -position.y > this.tabOffsetTop;
     },
     // 上拉加载更多
     loadMore() {
@@ -186,6 +179,7 @@ export default {
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
+  font-weight: 700;
 }
 .home-scroll {
   position: absolute;
