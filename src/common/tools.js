@@ -4,13 +4,13 @@
    return function (...args) {
      if (!flag) {
        return;
-     } else {
+     } 
        flag = false;
        setTimeout(() => {
          fn.apply(this, args);
          flag = true;
        }, delay);
-     }
+     
    }
  }
  // 防抖函数

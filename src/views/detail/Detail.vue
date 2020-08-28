@@ -134,7 +134,10 @@ export default {
       cartInfo.iid = this.iid;
       cartInfo.count = 1;
       // 添加到购物车
-      this.$store.dispatch('addToCart', cartInfo);
+      this.$store.dispatch('addToCart', cartInfo)
+        .then(res => {
+          this.$toast.show(res);
+        });
     },
     /**
      * 网络请求相关方法

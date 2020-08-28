@@ -62,7 +62,7 @@ export default {
   padding: 5px;
   width: 100%;
   display: flex;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   .item-selector {
     width: 20px;
     display: flex;

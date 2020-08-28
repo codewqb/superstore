@@ -5,7 +5,7 @@
       <span>全选</span>
     </div>
     <div class="price">总计：{{totalPrice}}</div>
-    <div class="calculate">去计算({{calculate}})</div>
+    <div class="calculate" @click="calcClick">去计算({{calculate}})</div>
   </div>
 </template>
 
@@ -38,6 +38,11 @@ export default {
   methods: {
     allCheckClick() {
       this.$store.commit(ALL_CHECK, this.isAllChecked);
+    },
+    calcClick() {
+      if (!this.isAllChecked) {
+        this.$toast.show('购物车为空!先去添加商品吧！');
+      }
     }
   },
 }

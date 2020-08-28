@@ -21,11 +21,6 @@ export default {
     CartList,
     CartBottomBar
   },
-  data() {
-    return {
-
-    }
-  },
   computed: {
     ...mapGetters(['cartCount'])
   },

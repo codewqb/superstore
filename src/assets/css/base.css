@@ -1,4 +1,5 @@
 @import "./normalize.css";
+@import "../fa/css/all.min.css";
 
 /*:root -> 获取根元素html*/
 :root {
@@ -64,6 +65,7 @@ span.swiper-pagination-bullet {
   background-color: #fff;
   opacity: 1;
 }
+
 span.swiper-pagination-bullet-active {
   background-color: rgb(219, 55, 132);
   opacity: 1;
