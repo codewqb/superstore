@@ -3,7 +3,7 @@
     <img v-lazy="showImg" :alt="goodsItem.title" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
-      <span class="goods-price">{{ goodsItem.price }}</span>
+      <span class="goods-price">￥{{ goodsItem.price }}</span>
       <span class="goods-collect">{{ goodsItem.cfav }}</span>
     </div>
   </div>
@@ -80,6 +80,6 @@ export default {
   top: -1px;
   width: 14px;
   height: 14px;
-  background: url(~assets/imgs/common/collect.svg) 0 0/14px 14px;
+  background: url("~assets/imgs/common/collect.svg") center/14px;
 }
 </style>

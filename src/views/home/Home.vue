@@ -108,6 +108,9 @@ export default {
       refresh();
     })
   },
+  activated() {
+    this.$refs.scroll.refresh();
+  },
   methods: {
     /**
      * 事件监听相关的方法

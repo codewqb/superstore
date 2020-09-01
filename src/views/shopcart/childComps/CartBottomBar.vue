@@ -40,7 +40,8 @@ export default {
       this.$store.commit(ALL_CHECK, this.isAllChecked);
     },
     calcClick() {
-      if (!this.isAllChecked) {
+      let flag = this.$store.state.cartList.every(item => item.checked === false)
+      if (flag) {
         this.$toast.show('购物车为空!先去添加商品吧！');
       }
     }
