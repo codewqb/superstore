@@ -127,8 +127,6 @@ export default {
         case 2:
           this.currentType = 'sell'
           break;
-        default:
-          break;
       }
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;

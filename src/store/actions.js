@@ -14,7 +14,7 @@ export default {
         resolve('商品的数量+1');
       } else {
         commit(ADD_CART, payload);
-        resolve('添加了新的商品');
+        resolve('添加了新的商品'); 
       }
     })
   }

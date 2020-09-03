@@ -1,6 +1,13 @@
 <template>
-  <div class="goods-item" @click="toDetail">
-    <img v-lazy="showImg" :alt="goodsItem.title" @load="imgLoad" />
+  <div
+    @click="toDetail"
+    class="goods-item"
+  >
+    <img
+      :alt="goodsItem.title"
+      @load="imgLoad"
+      v-lazy="showImg"
+    />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="goods-price">￥{{ goodsItem.price }}</span>
@@ -22,22 +29,21 @@ export default {
   },
   computed: {
     showImg() {
-      return this.goodsItem.image || this.goodsItem.show.img;
+      return this.goodsItem.image || this.goodsItem.show.img
     }
   },
   methods: {
     imgLoad() {
       if (this.$route.path.indexOf('/home') !== -1) {
-        this.$bus.$emit('homeImgLoad');
+        this.$bus.$emit('homeImgLoad')
       } else if (this.$route.path.indexOf('/detail') !== -1) {
-        this.$bus.$emit('detailImgLoad');
+        this.$bus.$emit('detailImgLoad')
       }
-
     },
     toDetail() {
       this.$router.push('/detail/' + this.goodsItem.iid)
     }
-  },
+  }
 }
 </script>
 
@@ -74,12 +80,12 @@ export default {
   }
 }
 .goods-collect::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -15px;
   top: -1px;
   width: 14px;
   height: 14px;
-  background: url("~assets/imgs/common/collect.svg") center/14px;
+  background: url('~assets/imgs/common/collect.svg') center/14px;
 }
 </style>

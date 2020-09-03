@@ -1,13 +1,21 @@
 <template>
-  <swiper :key="topImgs.length" :my-class-name="myClassName">
-    <div class="swiper-slide" v-for="(item,index) in topImgs" :key="index">
+  <swiper
+    :key="topImgs.length"
+    :my-class-name="myClassName"
+    :slide-count="topImgs.length"
+  >
+    <div
+      :key="index"
+      class="swiper-slide"
+      v-for="(item,index) in topImgs"
+    >
       <img :src="item" />
     </div>
   </swiper>
 </template>
 
 <script>
-import Swiper from 'components/common/swiper/Swiper';
+import Swiper from 'components/common/swiper/Swiper'
 export default {
   name: 'DetailSwiper',
   components: {
@@ -17,7 +25,7 @@ export default {
     topImgs: {
       type: Array,
       default() {
-        return {};
+        return {}
       }
     },
     myClassName: {

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { dateFormat } from 'filter/filter';
+import { dateFormat } from 'filters/filter';
 export default {
   name: 'DetailCommentInfo',
   props: {

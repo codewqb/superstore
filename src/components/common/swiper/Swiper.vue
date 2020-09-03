@@ -8,34 +8,40 @@
 </template>
 
 <script>
-import Swiper, { Pagination, Autoplay } from 'swiper';
-import 'swiper/swiper-bundle.css';
-Swiper.use([Pagination, Autoplay]);
+import Swiper, { Pagination, Autoplay } from 'swiper'
+import 'swiper/swiper-bundle.css'
+Swiper.use([Pagination, Autoplay])
 export default {
   name: 'Swiper',
   props: {
     myClassName: {
       type: String,
       default() {
-        return '';
+        return ''
       }
-    }
+    },
+    slideCount: Number
   },
   mounted() {
-    new Swiper('.' + this.myClassName, {
-      loop: true,
+    if (this.slideCount < 2) {
+      var isLoop = false
+      var pagination = null
+    } else {
+      isLoop = true
+      pagination = '.swiper-pagination'
+    }
+    const sw = new Swiper('.' + this.myClassName, {
+      loop: isLoop,
       autoplay: {
         disableOnInteraction: false
       },
       pagination: {
-        el: '.swiper-pagination'
+        el: pagination
       }
     })
-  },
+  }
 }
 </script>
 
 <style lang="less" scoped>
-
-
 </style>
