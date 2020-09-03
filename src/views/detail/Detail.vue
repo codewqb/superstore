@@ -120,17 +120,14 @@ export default {
   },
   mounted() {
     const refresh = debounce(this.$refs.scroll.refresh)
-    this.$bus.$on('detailImgLoad', () => {
-      refresh()
-    })
+    this.$bus.$on('detailImgLoad', refresh)
   },
   methods: {
     /**
      * 事件监听相关的方法
      */
     // detailNav的联动效果
-    imgLoad() {
-      this.listener = debounce(() => {
+    imgLoad: debounce(function() {
         this.$refs.scroll.refresh()
         this.topPositionY = []
         this.topPositionY.push(0)
@@ -138,9 +135,7 @@ export default {
         this.topPositionY.push(this.$refs.comment.$el.offsetTop)
         this.topPositionY.push(this.$refs.recommend.$el.offsetTop)
         this.topPositionY.push(Number.MAX_VALUE)
-      })
-      this.listener()
-    },
+      }),
     titleClick(index) {
       this.$refs.scroll.scrollTo(0, -this.topPositionY[index], 0)
     },
