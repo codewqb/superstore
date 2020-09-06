@@ -127,15 +127,15 @@ export default {
      * 事件监听相关的方法
      */
     // detailNav的联动效果
-    imgLoad: debounce(function() {
-        this.$refs.scroll.refresh()
-        this.topPositionY = []
-        this.topPositionY.push(0)
-        this.topPositionY.push(this.$refs.params.$el.offsetTop)
-        this.topPositionY.push(this.$refs.comment.$el.offsetTop)
-        this.topPositionY.push(this.$refs.recommend.$el.offsetTop)
-        this.topPositionY.push(Number.MAX_VALUE)
-      }),
+    imgLoad: debounce(function () {
+      this.$refs.scroll.refresh()
+      this.topPositionY = []
+      this.topPositionY.push(0)
+      this.topPositionY.push(this.$refs.params.$el.offsetTop)
+      this.topPositionY.push(this.$refs.comment.$el.offsetTop)
+      this.topPositionY.push(this.$refs.recommend.$el.offsetTop)
+      this.topPositionY.push(Number.MAX_VALUE)
+    }),
     titleClick(index) {
       this.$refs.scroll.scrollTo(0, -this.topPositionY[index], 0)
     },
